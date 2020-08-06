@@ -1,3 +1,13 @@
+#chartMain{
+    display: none;
+}
+
+#loading{
+    display: none;
+}
+
+
+
 .image-container{
     pointer-events: none;
     width: 50vw;

@@ -13,7 +13,7 @@
 	<form id="getUsername">
 		<input type="text" placeholder="Lastfm Username" value="ajaydubey541997">
 		
-		<label for="period">Choose a car:</label>
+		<label for="period">Choose a period:</label>
 
 		<select name="period" id="period">
 			<option selected value="overall">Overall</option>
@@ -27,33 +27,23 @@
 	</form>
 
 
-	<img id="loading" src="img/loading.svg" alt="" srcset="">
+	<img id="loading" src="img/loading.svg" alt="" srcset="" class="hide">
 
 
-	<main id="chartMain">
+	<main id="chartMain" class="hide">
 		<h1>This is where the charts will show up</h1>
 
 		<!-- the image container -->
 		<div class="image-container" oncontextmenu="return false">
-			<div class="a"><img src="https://lastfm.freetls.fastly.net/i/u/300x300/920102d40a35a6de3bcede4667ba2895.jpg"
-					class="onePhoto"></div>
-			<div class="b"><img src="https://lastfm.freetls.fastly.net/i/u/300x300/920102d40a35a6de3bcede4667ba2895.jpg"
-					class="onePhoto"></div>
-			<div class="c"><img src="https://lastfm.freetls.fastly.net/i/u/300x300/920102d40a35a6de3bcede4667ba2895.jpg"
-					class="onePhoto"></div>
-			<div class="d"><img src="https://lastfm.freetls.fastly.net/i/u/300x300/920102d40a35a6de3bcede4667ba2895.jpg"
-					class="onePhoto"></div>
-			<div class="e"><img src="https://lastfm.freetls.fastly.net/i/u/300x300/920102d40a35a6de3bcede4667ba2895.jpg"
-					class="onePhoto"></div>
-			<div class="f"><img src="https://lastfm.freetls.fastly.net/i/u/300x300/920102d40a35a6de3bcede4667ba2895.jpg"
-					class="onePhoto"></div>
-			<div class="g"><img src="https://lastfm.freetls.fastly.net/i/u/300x300/920102d40a35a6de3bcede4667ba2895.jpg"
-					class="onePhoto"></div>
 		</div>
 
-		<a id="download">Download as image</a>
+		<button id="downloadCollage">Download as image</button>
 	</main>
 
+	<!-- chart.js -->
+	<script src="js/Chart.min.js"></script>
+	<!-- reimg -->
+	<script src="js/remig.js"></script>
 	<!-- html2canvas -->
 	<script src="js/html2canvas.js"></script>
 	<!-- my script -->

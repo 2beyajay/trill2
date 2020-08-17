@@ -39,10 +39,15 @@ async function getUserData() {
 	user.allUserData.top10.tracks = await getTopTracks(toptracksUrl) //top tracks saved in the user class
 	user.allUserData.top10.artists = await getTopArtists(topArtistsUrl) //top artists saved in the user class
 	user.allUserData.top10.albums = await getTopAlbums(topAlbumsUrl) //top albums saved in the user class
+	
+	console.log(user.allUserData.top10);
 
 	await user.makeCollageArrays(); // making the array of urls for collage
-	await makeImages(user.allUserData.forCollage) // placing the collage in the DOM
+	await makeImages(user.allUserData.forCollage) // placing the collage in the DOM using url
 
+	// calling charting functions
+	await makeDurationChart();
+	await makeTopTracksChart();
 
 	setTimeout(() => {
 		makeCanvas();
@@ -73,7 +78,7 @@ async function makeImages(images) {
 
 async function makeCanvas() {
 	html2canvas(document.querySelector('.image-container'), {
-		useCORS: true
+		useCORS: true //enabling external links
 	}).then(function (canvas) {
 		downloadCollageButton.addEventListener('click', () => {
 			ReImg.fromCanvas(canvas).downloadPng('collage') //ReImg library to convert canvas and force user to download it
@@ -93,13 +98,14 @@ function debugBase64(base64URL) {
 async function getInfo(infoUrl) {
 	let response = await fetch(infoUrl);
 	let userInfo = await response.json()
+	user.allUserData.accountAge = userInfo.user.registered.unixtime;
 	return userInfo.user.playcount
 }
 
 async function getTopTracks(toptracksUrl) {
 	let response = await fetch(toptracksUrl);
 	let topTracksRaw = await response.json()
-	return topTracksRaw.toptracks.track;
+	return topTracksRaw.toptracks.track.sort(compare);
 }
 
 async function getTopArtists(topArtistsUrl) {
@@ -122,6 +128,7 @@ class User {
 		this.period = period;
 
 		this.allUserData = {
+			accountAge: 0,
 			totalDuration: 0,
 			top10: {
 				tracks: {},
@@ -143,4 +150,199 @@ class User {
 			this.allUserData.forCollage.push(album.image[3]['#text'])
 		});
 	}
+}
+
+function compare(a, b) {
+
+	let x, y;
+	if (a.duration) {
+		x = a.playcount * a.duration;
+		y = b.playcount * b.duration;
+	} else{
+		x = a.playcount;
+		y = b.playcount;
+	}
+
+	let comparison = 0;
+	if (x > y) {
+		comparison = -1;
+	} else if (x < y) {
+		comparison = 1;
+	}
+	return comparison;
+}
+
+
+
+async function makeDurationChart() {
+
+	let accountAgeHours = (user.allUserData.accountAge / 3600).toFixed(0);
+
+	let userSleep = (accountAgeHours / 3).toFixed(0); //dividing by 3 cuz 24/8 = 3. 8hr sleep per 24 hours
+	accountAgeHours = accountAgeHours - userSleep
+
+	let totalDurationHours = (user.allUserData.totalDuration / 3600).toFixed(0);
+
+	document.getElementById('totalDurationHours').innerHTML = `Time you've spent swining to the tunes: ${totalDurationHours.toLocaleString()} Hours out of the last ${accountAgeHours.toLocaleString()} hours you've been awake`
+
+
+	let ctx = document.getElementById('playcountChart').getContext('2d');
+	// For a pie chart
+	let playcountChart = new Chart(ctx, {
+		type: 'pie',
+		data: {
+			labels: ['Account age(hr)', 'Approx Sleep(hr)', 'Total listening(hr)'],
+			datasets: [{
+				data: [accountAgeHours, userSleep, totalDurationHours],
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+				],
+				borderWidth: 1
+			}]
+		},
+	});
+}
+
+async function makeTopTracksChart() {
+
+	let tracks = user.allUserData.top10.tracks;
+
+	let trackTimeHours = tracks.map(track => {
+		return Math.ceil((track.playcount * track.duration) /3600)
+	})
+	
+	let trackTimeMins = trackTimeHours * 60;
+
+	let trackTitles = tracks.map(track => {
+		return track.name
+	})
+
+
+	var ctx = document.getElementById('tracksChart').getContext('2d');
+	var tracksChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: trackTitles,
+			datasets: [{
+				label: '# of Votes',
+				data: trackTimeHours,
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)',
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			legend: {
+				display: false
+			},
+			title: {
+				display: true,
+				text: 'Hours Spent on tracks'
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+}
+
+async function makeTopAlbumsChart(){
+	let tracks = user.allUserData.top10.albums;
+
+	let trackTimeHours = tracks.map(track => {
+		return Math.ceil((track.playcount * track.duration) /3600)
+	})
+	
+	let trackTimeMins = trackTimeHours * 60;
+
+	let trackTitles = tracks.map(track => {
+		return track.name
+	})
+
+
+	var ctx = document.getElementById('tracksChart').getContext('2d');
+	var tracksChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: trackTitles,
+			datasets: [{
+				label: '# of Votes',
+				data: trackTimeHours,
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)',
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			legend: {
+				display: false
+			},
+			title: {
+				display: true,
+				text: 'Hours Spent on tracks'
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
 }

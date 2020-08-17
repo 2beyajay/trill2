@@ -218,7 +218,9 @@ async function makeTopTracksChart() {
 		return Math.ceil((track.playcount * track.duration) /3600)
 	})
 	
-	let trackTimeMins = trackTimeHours * 60;
+	let playcount = tracks.map(track => {
+		return track.playcount/10
+	})
 
 	let trackTitles = tracks.map(track => {
 		return track.name
@@ -231,7 +233,7 @@ async function makeTopTracksChart() {
 		data: {
 			labels: trackTitles,
 			datasets: [{
-				label: '# of Votes',
+				label: 'Time Spent(hr)',
 				data: trackTimeHours,
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
@@ -257,13 +259,20 @@ async function makeTopTracksChart() {
 					'rgba(255, 206, 86, 1)',
 					'rgba(75, 192, 192, 1)'
 				],
-				borderWidth: 1
+				borderWidth: 1,
+				order: 1
+			},{
+				label: 'Playcount X 10',
+				data: playcount,
+				borderColor: 'rgba(54, 162, 235, 1)',
+				backgroundColor: 'transparent',
+				borderWidth: 3,
+				order: 2,
+				lineTension: 0,
+				type: 'line',
 			}]
 		},
 		options: {
-			legend: {
-				display: false
-			},
 			title: {
 				display: true,
 				text: 'Hours Spent on tracks'

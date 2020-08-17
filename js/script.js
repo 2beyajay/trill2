@@ -39,8 +39,6 @@ async function getUserData() {
 	user.allUserData.top10.tracks = await getTopTracks(toptracksUrl) //top tracks saved in the user class
 	user.allUserData.top10.artists = await getTopArtists(topArtistsUrl) //top artists saved in the user class
 	user.allUserData.top10.albums = await getTopAlbums(topAlbumsUrl) //top albums saved in the user class
-	
-	console.log(user.allUserData.top10);
 
 	await user.makeCollageArrays(); // making the array of urls for collage
 	await makeImages(user.allUserData.forCollage) // placing the collage in the DOM using url
@@ -48,6 +46,8 @@ async function getUserData() {
 	// calling charting functions
 	await makeDurationChart();
 	await makeTopTracksChart();
+	await makeTopAlbumsChart();
+	await makeTopArtistsChart();
 
 	setTimeout(() => {
 		makeCanvas();
@@ -225,8 +225,8 @@ async function makeTopTracksChart() {
 	})
 
 
-	var ctx = document.getElementById('tracksChart').getContext('2d');
-	var tracksChart = new Chart(ctx, {
+	let ctx = document.getElementById('tracksChart').getContext('2d');
+	let tracksChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
 			labels: trackTitles,
@@ -280,27 +280,24 @@ async function makeTopTracksChart() {
 }
 
 async function makeTopAlbumsChart(){
-	let tracks = user.allUserData.top10.albums;
+	let albums = user.allUserData.top10.albums;
 
-	let trackTimeHours = tracks.map(track => {
-		return Math.ceil((track.playcount * track.duration) /3600)
+	let playcount = albums.map(album => {
+		return album.playcount
 	})
-	
-	let trackTimeMins = trackTimeHours * 60;
 
-	let trackTitles = tracks.map(track => {
-		return track.name
+	let albumTitles = albums.map(album => {
+		return album.name
 	})
 
 
-	var ctx = document.getElementById('tracksChart').getContext('2d');
-	var tracksChart = new Chart(ctx, {
+	let ctx = document.getElementById('albumsChart').getContext('2d');
+	let albumsChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: trackTitles,
+			labels: albumTitles,
 			datasets: [{
-				label: '# of Votes',
-				data: trackTimeHours,
+				data: playcount,
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',
@@ -334,7 +331,72 @@ async function makeTopAlbumsChart(){
 			},
 			title: {
 				display: true,
-				text: 'Hours Spent on tracks'
+				text: 'Hours Spent on Albums'
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+}
+
+async function makeTopArtistsChart(){
+	let artists = user.allUserData.top10.artists;
+
+	let playcount = artists.map(artist => {
+		return artist.playcount
+	})
+
+	let artistName = artists.map(artist => {
+		return artist.name
+	})
+
+
+	let ctx = document.getElementById('artistsChart').getContext('2d');
+	let artistsChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: artistName,
+			datasets: [{
+				data: playcount,
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)',
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)',
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			legend: {
+				display: false
+			},
+			title: {
+				display: true,
+				text: 'Hours Spent with Artists'
 			},
 			scales: {
 				yAxes: [{

@@ -4,17 +4,85 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/foundation.min.css">
+	<link rel="stylesheet" href="css/foundation.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<title>collage maker test</title>
 </head>
 
 <body>
 
-	<form id="getUsername">
+	<header class="grid-x">
+		<img src="img/logo.png" alt="trill logo" class="large-1">
+		<a href="#" class="large-offset-8 large-2">Getting Started</a>
+		<a href="#" class="large-1">About Trill</a>
+	</header>
+
+	<main>
+		<img id="loading" src="img/loading.svg" alt="" srcset="" class="hide">
+
+		<section class="grid-x landing">
+			<h1 class="large-offset-4 large-4">This is <span>Trill</span></h1>
+			<h2 class="large-offset-4 large-4">Visualize your music habits</h2>
+
+			<form id="getUsername" class="grid-x large-offset-3 large-6">
+				<input class="large-8" type="text" placeholder="Lastfm Username" value="ajaydubey541997">
+
+				<!-- <label for="period">Choose a period:</label> -->
+
+				<select class="large-3" name="period" id="period">
+					<option selected value="overall">Overall</option>
+					<option value="7day">7 Days</option>
+					<option value="1month">1 Month</option>
+					<option value="3month">3 Month</option>
+					<option value="6month">6 Month</option>
+					<option value="12month">1 Year</option>
+				</select>
+				<input class="large-1" type="submit" value=">">
+			</form>
+		</section>
+
+		<div class="hide" id="chartMain">
+			<section class="playcount-section grid-x align-center">
+				<h3 class="large-12">PlayCount</h3>
+				<h4 class="large-12" id="totalDurationHours">Hours you've spent swining to the tunes: </h4>
+				<canvas class="large-6" id="playcountChart" width="400" height="400"></canvas>
+			</section>
+
+			<section class="tracks-section grid-x align-center">
+				<h4>Tracks</h4>
+				<canvas id="tracksChart" width="400" height="400"></canvas>
+			</section>
+
+			<section class="artists-section grid-x align-center">
+				<h4>Artists</h4>
+				<canvas id="artistsChart" width="400" height="400"></canvas>
+			</section>
+
+			<section class="albums-section grid-x align-center">
+				<h4>Albums</h4>
+				<canvas id="albumsChart" width="400" height="400"></canvas>
+			</section>
+
+			<section class="artwork grid-x align-center">
+				<div class="image-container" oncontextmenu="return false"></div>
+				<button id="downloadCollage">Download as image</button>
+			</section>
+		</div>
+
+	</main>
+
+	<footer>Copyright © 2020 Ajay Dubey</footer>
+
+
+
+	
+
+	<!-- <form id="getUsername">
 		<input type="text" placeholder="Lastfm Username" value="ajaydubey541997">
 		
 		<label for="period">Choose a period:</label>
-
+		
 		<select name="period" id="period">
 			<option selected value="overall">Overall</option>
 			<option value="7day">7 Days</option>
@@ -24,20 +92,22 @@
 			<option value="12month">1 Year</option>
 		</select>
 		<input type="submit" value="submit">
-	</form>
+	</form> -->
 
 
-	<img id="loading" src="img/loading.svg" alt="" srcset="" class="hide">
+
+	<!-- <img id="loading" src="img/loading.svg" alt="" srcset="" class="hide"> -->
 
 
-	<main id="chartMain" class="hide">
-		<h1>This is where the charts will show up</h1>
+
+
+	<!-- <main id="chartMain" class="hide">
 
 		<h3 id="totalDurationHours">Hours you've spent swining to the tunes: </h3>
-		
+
 		<h4>PlayCount</h4>
 		<canvas id="playcountChart" width="400" height="400"></canvas>
-		
+
 		<h4>Tracks</h4>
 		<canvas id="tracksChart" width="400" height="400"></canvas>
 
@@ -47,13 +117,17 @@
 		<h4>Albums</h4>
 		<canvas id="albumsChart" width="400" height="400"></canvas>
 
-		<!-- the image container -->
-		<div class="image-container" oncontextmenu="return false">
-		</div>
+
+		<div class="image-container" oncontextmenu="return false"></div>
 
 		<button id="downloadCollage">Download as image</button>
-	</main>
+	</main> -->
 
+
+
+	<!-- foundation -->
+	<!-- <script src="js/jquery.js"></script> -->
+	<!-- <script src="js/foundation.min.js"></script> -->
 	<!-- chart.js -->
 	<script src="js/Chart.min.js"></script>
 	<!-- reimg -->

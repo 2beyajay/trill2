@@ -6,7 +6,7 @@ let loading;
 let downloadCollageButton;
 
 window.onload = function () {
-
+	// $(document).foundation();
 	getUsername = document.querySelector('#getUsername');
 	chartMain = document.querySelector('#chartMain');
 	loading = document.querySelector('#loading');

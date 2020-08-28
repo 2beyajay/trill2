@@ -23,7 +23,6 @@ window.onload = function () {
 
 
 
-
 async function getUserData() {
 
 	getUsername.classList.add('hide')
@@ -54,7 +53,6 @@ async function getUserData() {
 	}, 1000);
 }
 
-
 async function makeImages(images) {
 
 	let imageContainer = document.querySelector('.image-container');
@@ -69,6 +67,7 @@ async function makeImages(images) {
 		div.classList.add(divClasses[i])
 		div.appendChild(img);
 		imageContainer.appendChild(div);
+		console.log(div);
 	}
 
 	chartMain.classList.remove('hide')

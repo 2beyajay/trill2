@@ -7,6 +7,7 @@ let downloadCollageButton;
 
 window.onload = function () {
 	// $(document).foundation();
+	main = document.querySelector('main');
 	getUsername = document.querySelector('#getUsername');
 	chartMain = document.querySelector('#chartMain');
 	loading = document.querySelector('#loading');
@@ -25,7 +26,8 @@ window.onload = function () {
 
 async function getUserData() {
 
-	getUsername.classList.add('hide')
+	// getUsername.classList.add('hide')
+	main.classList.add('hide');
 	loading.classList.remove('hide')
 
 	let infoUrl = user.getUrl('getInfo')
@@ -71,12 +73,28 @@ async function makeImages(images) {
 	}
 
 	loading.classList.add('hide')
+	main.classList.remove('hide')
 	chartMain.classList.remove('hide')
-	window.scrollBy(0, window.innerHeight/1.25)
-	getUsername.classList.remove('hide')
+	window.scrollBy(0, window.innerHeight / 1.25)
+	// getUsername.classList.remove('hide')
 }
 
+
 async function makeCanvas() {
+	let htmlCollageNode = document.querySelector('.image-container');
+
+	downloadCollageButton.addEventListener('click', () => {
+		domtoimage.toBlob(htmlCollageNode)
+			.then(function (blob) {
+				window.saveAs(blob, 'collage.png');
+			});
+		count++;
+	})
+
+}
+
+
+/* async function makeCanvas() {
 	html2canvas(document.querySelector('.image-container'), {
 		useCORS: true //enabling external links
 	}).then(function (canvas) {
@@ -84,7 +102,7 @@ async function makeCanvas() {
 			ReImg.fromCanvas(canvas).downloadPng('collage') //ReImg library to convert canvas and force user to download it
 		})
 	});
-}
+} */
 
 function debugBase64(base64URL) {
 	var win = window.open();
@@ -158,7 +176,7 @@ function compare(a, b) {
 	if (a.duration) {
 		x = a.playcount * a.duration;
 		y = b.playcount * b.duration;
-	} else{
+	} else {
 		x = a.playcount;
 		y = b.playcount;
 	}
@@ -215,11 +233,11 @@ async function makeTopTracksChart() {
 	let tracks = user.allUserData.top10.tracks;
 
 	let trackTimeHours = tracks.map(track => {
-		return Math.ceil((track.playcount * track.duration) /3600)
+		return Math.ceil((track.playcount * track.duration) / 3600)
 	})
-	
+
 	let playcount = tracks.map(track => {
-		return track.playcount/10
+		return track.playcount / 10
 	})
 
 	let trackTitles = tracks.map(track => {
@@ -261,7 +279,7 @@ async function makeTopTracksChart() {
 				],
 				borderWidth: 1,
 				order: 1
-			},{
+			}, {
 				label: 'Playcount X 10',
 				data: playcount,
 				borderColor: 'rgba(54, 162, 235, 1)',
@@ -288,7 +306,7 @@ async function makeTopTracksChart() {
 	});
 }
 
-async function makeTopAlbumsChart(){
+async function makeTopAlbumsChart() {
 	let albums = user.allUserData.top10.albums;
 
 	let playcount = albums.map(album => {
@@ -353,7 +371,7 @@ async function makeTopAlbumsChart(){
 	});
 }
 
-async function makeTopArtistsChart(){
+async function makeTopArtistsChart() {
 	let artists = user.allUserData.top10.artists;
 
 	let playcount = artists.map(artist => {

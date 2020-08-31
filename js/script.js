@@ -70,9 +70,10 @@ async function makeImages(images) {
 		console.log(div);
 	}
 
-	chartMain.classList.remove('hide')
-	getUsername.classList.remove('hide')
 	loading.classList.add('hide')
+	chartMain.classList.remove('hide')
+	window.scrollBy(0, window.innerHeight/1.25)
+	getUsername.classList.remove('hide')
 }
 
 async function makeCanvas() {

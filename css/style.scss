@@ -1,0 +1,145 @@
+$primary: #330867;
+$secondary: #30CFD0;
+
+$black1: #232323;
+$black2: #303030;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hide {
+    display: none;
+}
+
+
+.image-container {
+    pointer-events: none;
+    width: 750px;
+    background-color: black;
+    display: grid;
+    grid-template-areas:
+        "a a a b b c c c"
+        "a a a b b c c c"
+        "a a a e e c c c"
+        "d d d e e g g g"
+        "d d d f f g g g"
+        "d d d f f g g g";
+    gap: 5px;
+}
+
+.a {
+    grid-area: a;
+}
+
+.b {
+    grid-area: b;
+}
+
+.c {
+    grid-area: c;
+}
+
+.d {
+    grid-area: d;
+}
+
+.e {
+    grid-area: e;
+}
+
+.f {
+    grid-area: f;
+}
+
+.g {
+    grid-area: g;
+}
+
+.onePhoto {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* body */
+body {
+    background-color: $black2;
+}
+
+
+/* header */
+header {
+    background-color: $black1;
+
+    a {
+        color: $secondary;
+        font-family: 'Source Sans Pro', sans-serif;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+
+.loading-div {
+    height: 100vh;
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 2rem solid $primary;
+        border-bottom: 2rem solid $primary;
+        border-left: 2rem solid $secondary;
+        border-right: 2rem solid $secondary;
+
+        width: 25vw;
+        height: 25vw;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
+}
+
+
+.landing {
+    height: 100vh;
+    display: grid;
+    
+    h1 {
+        text-align: center;
+    }
+
+    input[type='submit'] {
+        height: 2.4375rem;
+    }
+
+    #heading{
+        background-color: $primary;
+        h1{
+            
+        }
+    }
+}

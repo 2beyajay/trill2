@@ -5,6 +5,34 @@ let chartMain;
 let loading;
 let downloadCollageButton;
 
+let chartLabelColor = '#d4d4d4'
+
+
+//Get the button
+let toTop = document.getElementById("toTop");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+	scrollFunction()
+};
+
+function scrollFunction() {
+	if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+		toTop.style.display = "block";
+	} else {
+		toTop.style.display = "none";
+	}
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
+}
+
+
+
+
 window.onload = function () {
 	// $(document).foundation();
 	main = document.querySelector('main');
@@ -20,6 +48,13 @@ window.onload = function () {
 		user = new User(username, period); // making a user object with the given username and the period selected
 		getUserData()
 	})
+
+
+
+
+	
+
+
 };
 
 
@@ -201,7 +236,11 @@ async function makeDurationChart() {
 
 	let totalDurationHours = (user.allUserData.totalDuration / 3600).toFixed(0);
 
-	document.getElementById('totalDurationHours').innerHTML = `Time you've spent swining to the tunes: ${totalDurationHours.toLocaleString()} Hours out of the last ${accountAgeHours.toLocaleString()} hours you've been awake`
+	let percentSpent = (totalDurationHours / (accountAgeHours - userSleep)) * 100;
+
+	console.log(`account age ${accountAgeHours}, \nsleep ${userSleep}, \ntotalDurationHours ${totalDurationHours}, \naccount age - sleep ${accountAgeHours - userSleep}`);
+
+	document.getElementById('totalDurationHours').innerHTML = `Time you've spent swining to the tunes: <span>${totalDurationHours.toLocaleString()}</span> Hours out of the last <span>${(accountAgeHours - userSleep).toLocaleString()}</span> hours you've been awake which make up <span>${percentSpent.toFixed(2)}%</span> of your awake time.`
 
 
 	let ctx = document.getElementById('playcountChart').getContext('2d');
@@ -213,9 +252,9 @@ async function makeDurationChart() {
 			datasets: [{
 				data: [accountAgeHours, userSleep, totalDurationHours],
 				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
+					'rgba(255, 99, 132, 0.75)',
+					'rgba(54, 162, 235, 0.75)',
+					'rgba(255, 206, 86, 0.75)',
 				],
 				borderColor: [
 					'rgba(255, 99, 132, 1)',
@@ -225,6 +264,13 @@ async function makeDurationChart() {
 				borderWidth: 1
 			}]
 		},
+		options: {
+			legend: {
+				labels: {
+					fontColor: chartLabelColor
+				}
+			},
+		}
 	});
 }
 
@@ -251,19 +297,19 @@ async function makeTopTracksChart() {
 		data: {
 			labels: trackTitles,
 			datasets: [{
-				label: 'Time Spent(hr)',
+				label: 'Time spent(hr)',
 				data: trackTimeHours,
 				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)',
-					'rgba(255, 159, 64, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)'
+					'rgba(255, 99, 132, 0.75)',
+					'rgba(54, 162, 235, 0.75)',
+					'rgba(255, 206, 86, 0.75)',
+					'rgba(75, 192, 192, 0.75)',
+					'rgba(153, 102, 255, 0.75)',
+					'rgba(255, 159, 64, 0.75)',
+					'rgba(255, 99, 132, 0.75)',
+					'rgba(54, 162, 235, 0.75)',
+					'rgba(255, 206, 86, 0.75)',
+					'rgba(75, 192, 192, 0.75)'
 				],
 				borderColor: [
 					'rgba(255, 99, 132, 1)',
@@ -278,28 +324,40 @@ async function makeTopTracksChart() {
 					'rgba(75, 192, 192, 1)'
 				],
 				borderWidth: 1,
-				order: 1
+				order: 2
 			}, {
-				label: 'Playcount X 10',
+				label: 'Playcount (1 unit = 10 plays)',
 				data: playcount,
 				borderColor: 'rgba(54, 162, 235, 1)',
 				backgroundColor: 'transparent',
 				borderWidth: 3,
-				order: 2,
+				order: 1,
 				lineTension: 0,
 				type: 'line',
 			}]
 		},
 		options: {
+			legend: {
+				labels: {
+					fontColor: chartLabelColor
+				}
+			},
 			title: {
 				display: true,
-				text: 'Hours Spent on tracks'
+				text: 'Hours Spent on tracks',
+				fontColor: chartLabelColor
 			},
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+						fontColor: chartLabelColor
 					}
+				}],
+				xAxes: [{
+					ticks: {
+						fontColor: chartLabelColor
+					},
 				}]
 			}
 		}
@@ -326,16 +384,16 @@ async function makeTopAlbumsChart() {
 			datasets: [{
 				data: playcount,
 				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)',
-					'rgba(255, 159, 64, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)'
+					'rgba(255, 99, 132, 0.75)',
+					'rgba(54, 162, 235, 0.75)',
+					'rgba(255, 206, 86, 0.75)',
+					'rgba(75, 192, 192, 0.75)',
+					'rgba(153, 102, 255, 0.75)',
+					'rgba(255, 159, 64, 0.75)',
+					'rgba(255, 99, 132, 0.75)',
+					'rgba(54, 162, 235, 0.75)',
+					'rgba(255, 206, 86, 0.75)',
+					'rgba(75, 192, 192, 0.75)'
 				],
 				borderColor: [
 					'rgba(255, 99, 132, 1)',
@@ -358,13 +416,20 @@ async function makeTopAlbumsChart() {
 			},
 			title: {
 				display: true,
-				text: 'Hours Spent on Albums'
+				text: 'Hours Spent on Albums',
+				fontColor: chartLabelColor
 			},
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+						fontColor: chartLabelColor
 					}
+				}],
+				xAxes: [{
+					ticks: {
+						fontColor: chartLabelColor
+					},
 				}]
 			}
 		}
@@ -391,16 +456,16 @@ async function makeTopArtistsChart() {
 			datasets: [{
 				data: playcount,
 				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)',
-					'rgba(255, 159, 64, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)'
+					'rgba(255, 99, 132, 0.75)',
+					'rgba(54, 162, 235, 0.75)',
+					'rgba(255, 206, 86, 0.75)',
+					'rgba(75, 192, 192, 0.75)',
+					'rgba(153, 102, 255, 0.75)',
+					'rgba(255, 159, 64, 0.75)',
+					'rgba(255, 99, 132, 0.75)',
+					'rgba(54, 162, 235, 0.75)',
+					'rgba(255, 206, 86, 0.75)',
+					'rgba(75, 192, 192, 0.75)'
 				],
 				borderColor: [
 					'rgba(255, 99, 132, 1)',
@@ -423,13 +488,20 @@ async function makeTopArtistsChart() {
 			},
 			title: {
 				display: true,
-				text: 'Hours Spent with Artists'
+				text: 'Hours Spent with Artists',
+				fontColor: chartLabelColor
 			},
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+						fontColor: chartLabelColor
 					}
+				}],
+				xAxes: [{
+					ticks: {
+						fontColor: chartLabelColor
+					},
 				}]
 			}
 		}

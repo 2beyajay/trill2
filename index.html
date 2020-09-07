@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/Chart.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-	<title>collage maker test</title>
+	<title>TRILL</title>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 		<div class="cell large-2 medium-3 small-6 grid-x">
 			<img src="img/logo.png" alt="trill logo" class="auto">
 		</div>
-		<a href="#" class="cell large-offset-8 large-2 medium-offset-7 medium-2 small-offset-2 small-4">About Trill</a>
+		<a href="./about.html" class="cell large-offset-8 large-2 medium-offset-7 medium-2 small-offset-2 small-4">About Trill</a>
 	</header>
 
 	<div id="loading" class="loading-div grid-x grid-padding-x align-center-middle text-center hide">
@@ -43,8 +43,7 @@
 					value="ajaydubey541997">
 
 				<select class="large-3 medium-3 small-3" name="period" id="period">
-					<option class="show-for-small-only" selected value="overall">Overall&#x25bc;</option>
-					<option class="hide-for-small-only" selected value="overall">Overall</option>
+					<option selected value="overall">Overall</option>
 					<option value="7day">7 Days</option>
 					<option value="1month">1 Month</option>
 					<option value="3month">3 Month</option>
@@ -54,7 +53,15 @@
 				<button class="large-1 medium-1 small-1" type="submit">></button>
 			</form>
 
-			<div class="svg">svg animation here</div>
+			<!-- <div class="svg">svg animation here</div> -->
+			<div class="svg">
+				<iframe src="./wave.html" frameborder="0">
+					<!-- <div class="ocean">
+						<div class="wave"></div>
+						<div class="wave"></div>
+					</div> -->
+				</iframe>
+			</div>
 
 		</section>
 
@@ -69,7 +76,7 @@
 				<div class="large-offset-1 large-5 medium-offset-1 medium-10 small-12">
 					<h4 class="" id="totalDurationHours">Hours you've spent swining to the tunes: </h4>
 				</div>
-				
+
 			</section>
 
 			<section class="tracks-section grid-x large-12 medium-12 small-12">

@@ -4,6 +4,7 @@ let getUsername
 let chartMain;
 let loading;
 let downloadCollageButton;
+let landingP;
 
 let chartLabelColor = '#d4d4d4'
 
@@ -20,13 +21,23 @@ window.onload = function () {
 	chartMain = document.querySelector('#chartMain');
 	loading = document.querySelector('#loading');
 	downloadCollageButton = document.querySelector('#downloadCollage');
+	landingP = document.querySelector('.landing p')
 
 	getUsername.addEventListener('submit', (e) => {
 		e.preventDefault();
 		let username = e.target[0].value; //getting the value of the username input field
 		let period = e.target[1].value; //getting the value of the period dropdown field
-		user = new User(username, period); // making a user object with the given username and the period selected
-		getUserData()
+
+		if (username && period) {
+			user = new User(username, period); // making a user object with the given username and the period selected
+			getUserData();
+		} else {
+			landingP.innerHTML = `<span class="formError" style="color: #d4d4d4">Username can not be empty.</span>`
+			setTimeout(() => {
+				landingP.innerHTML = `*Use ajaydubey541997 for demonstration.`
+			}, 2500);
+		}
+
 	})
 };
 
@@ -63,22 +74,37 @@ async function getUserData() {
 
 	// saving all the userdata in the class
 	user.allUserData.totalDuration = 240 * (await getInfo(infoUrl)) //user info saved in the user class
-	user.allUserData.top10.tracks = await getTopTracks(toptracksUrl) //top tracks saved in the user class
-	user.allUserData.top10.artists = await getTopArtists(topArtistsUrl) //top artists saved in the user class
-	user.allUserData.top10.albums = await getTopAlbums(topAlbumsUrl) //top albums saved in the user class
 
-	await user.makeCollageArrays(); // making the array of urls for collage
-	await makeImages(user.allUserData.forCollage) // placing the collage in the DOM using url
+	if (user.allUserData.totalDuration > 0) {
 
-	// calling charting functions
-	await makeDurationChart();
-	await makeTopTracksChart();
-	await makeTopAlbumsChart();
-	await makeTopArtistsChart();
+		user.allUserData.top10.tracks = await getTopTracks(toptracksUrl) //top tracks saved in the user class
+		user.allUserData.top10.artists = await getTopArtists(topArtistsUrl) //top artists saved in the user class
+		user.allUserData.top10.albums = await getTopAlbums(topAlbumsUrl) //top albums saved in the user class
 
-	setTimeout(() => {
-		makeCanvas();
-	}, 1000);
+		await user.makeCollageArrays(); // making the array of urls for collage
+		await makeImages(user.allUserData.forCollage) // placing the collage in the DOM using url
+
+		// calling charting functions
+		await makeDurationChart();
+		await makeTopTracksChart();
+		await makeTopAlbumsChart();
+		await makeTopArtistsChart();
+
+		setTimeout(() => {
+			makeCanvas();
+		}, 1000);
+
+
+
+	} else {
+		loading.classList.add('hide')
+		main.classList.remove('hide')
+		landingP.innerHTML = `<span class="formError" style="color: #d4d4d4">Username not found.</span>`
+		setTimeout(() => {
+			landingP.innerHTML = `*Use ajaydubey541997 for demonstration.`
+		}, 2500);
+	}
+
 }
 
 async function makeImages(images) {
@@ -127,10 +153,14 @@ function debugBase64(base64URL) {
 
 
 async function getInfo(infoUrl) {
-	let response = await fetch(infoUrl);
-	let userInfo = await response.json()
-	user.allUserData.accountAge = userInfo.user.registered.unixtime;
-	return userInfo.user.playcount
+	try {
+		let response = await fetch(infoUrl);
+		let userInfo = await response.json()
+		user.allUserData.accountAge = userInfo.user.registered.unixtime;
+		return userInfo.user.playcount
+	} catch (error) {
+		return -1
+	}
 }
 
 async function getTopTracks(toptracksUrl) {
@@ -253,7 +283,7 @@ async function makeDurationChart() {
 async function makeTopTracksChart() {
 
 	let tracks = user.allUserData.top10.tracks;
-	
+
 	let tracksLastfmUrl = tracks.map(track => {
 		return [track.url, track.name];
 	})

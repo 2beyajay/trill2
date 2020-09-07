@@ -72,7 +72,7 @@ button {
   background-color: #555;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   #toTop {
     width: 2rem;
     height: 2rem;
@@ -83,7 +83,8 @@ button {
 
 .image-container {
   pointer-events: none;
-  width: 750px;
+  max-width: 750px;
+  width: 95%;
   background-color: black;
   display: -ms-grid;
   display: grid;
@@ -162,9 +163,11 @@ body {
 header {
   position: fixed;
   background-color: #232323;
+  z-index: 100;
+  width: 100%;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   header {
     position: fixed;
   }
@@ -174,9 +177,17 @@ header img {
   padding: 0 2.5rem;
 }
 
+@media screen and (max-width: 1200px) {
+  header img {
+    max-width: 20vh;
+  }
+}
+
 header a {
   color: #30CFD0;
   font-family: ssp_regular;
+  text-align: center;
+  font-size: 1.25rem;
 }
 
 header a:hover {
@@ -201,7 +212,7 @@ header a:hover {
   animation: spin 2s linear infinite;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .loading-div .loader {
     width: 8rem;
     height: 8rem;
@@ -278,6 +289,7 @@ header a:hover {
     grid-column: 2 / 5;
     -webkit-box-shadow: 2px 2px 1px black;
             box-shadow: 2px 2px 1px black;
+    margin-top: calc(7vh - 5vh);
   }
 }
 
@@ -291,11 +303,11 @@ header a:hover {
 
 @media screen and (max-width: 1200px) {
   .landing .heading h1 {
-    font-size: 4rem;
+    font-size: 6ch;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .landing .heading h1 {
     font-size: 2rem;
     text-shadow: 1px 1px 1px black;
@@ -337,7 +349,7 @@ header a:hover {
   color: #30CFD0;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .landing .subheading h2 {
     font-size: 0.9rem;
   }
@@ -360,11 +372,11 @@ header a:hover {
     grid-column: 1 / span 5;
     -ms-grid-row: 5;
     grid-row: 5;
-    margin: 0 1rem;
+    margin: 0 3rem;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .landing form {
     font-size: 1rem;
     -ms-grid-column: 1;
@@ -388,7 +400,7 @@ header a:hover {
   border-color: #30CFD0;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .landing form input,
   .landing form select {
     padding: 0 5px;
@@ -410,46 +422,63 @@ header a:hover {
   background-color: rgba(58, 11, 11, 0.336);
 }
 
+#chartMain {
+  padding-top: 50px;
+}
+
 #chartMain section {
   height: 100vh;
-  margin-top: 7rem;
-  margin-bottom: 7rem;
-  border-bottom: #a1a1a1 dotted 2px;
+  -webkit-box-shadow: 0px 0px 10px #232323;
+          box-shadow: 0px 0px 10px #232323;
+  border-radius: 15px;
+  margin-bottom: 50px;
+  padding: 50px;
+  background: #252525;
+  background: linear-gradient(165deg, #252525 0%, #092324 100%);
 }
 
 @media screen and (max-width: 1200px) {
   #chartMain section {
     height: auto;
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 0;
+    width: 95%;
+    margin: 40px auto;
   }
   #chartMain section * {
     margin: 3% auto;
   }
 }
 
+@media screen and (max-width: 550px) {
+  #chartMain section {
+    padding: 10px;
+  }
+  #chartMain section * {
+    margin: 2% auto;
+  }
+}
+
 #chartMain section h3 {
   color: #30CFD0;
   font-family: ssp_black;
+  text-align: center;
+  text-shadow: 2px 2px 0px black;
 }
 
 @media screen and (max-width: 1200px) {
   #chartMain section h3 {
     font-size: 5vw;
-    text-align: center;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   #chartMain section h3 {
     font-size: 7vw;
-    text-align: center;
   }
 }
 
 #chartMain section h4 {
   color: #d4d4d4;
+  text-align: center;
 }
 
 #chartMain section h4 span {
@@ -463,11 +492,66 @@ header a:hover {
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   #chartMain section h4 {
-    font-size: 4.5vw;
+    font-size: 3.5vw;
     margin: 0 5%;
+    text-align: center;
   }
+}
+
+#chartMain section ol {
+  font-size: 3ch;
+  z-index: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  #chartMain section ol {
+    font-size: 2ch;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  #chartMain section ol {
+    padding: auto 2vw;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+}
+
+#chartMain section ol li {
+  counter-increment: list;
+  list-style-type: none;
+  position: relative;
+}
+
+#chartMain section ol li:before {
+  color: #a1a1a1;
+  content: counter(list) ".";
+  left: -32px;
+  position: absolute;
+  text-align: right;
+  width: 26px;
+}
+
+@media screen and (max-width: 1200px) {
+  #chartMain section ol li {
+    margin: 1vw 5vw;
+  }
+}
+
+#chartMain section ol li a {
+  color: #30CFD0;
+}
+
+#chartMain section ol li a:hover {
+  color: #a1a1a1;
 }
 
 #chartMain .playcount-section div {
@@ -514,7 +598,6 @@ header a:hover {
       flex-wrap: wrap;
   height: auto;
   border-bottom: none;
-  margin-top: 5rem;
 }
 
 #chartMain .artwork h3 {

@@ -9,10 +9,8 @@ $white1: #d4d4d4;
 $white2: #a1a1a1;
 
 $break-medium: 1200px;
-$break-small: 450px;
+$break-small: 550px;
 
-$heading-medium: 1rem;
-$heading-small: 2rem;
 
 * {
     margin: 0;
@@ -98,7 +96,8 @@ button {
 
 .image-container {
     pointer-events: none;
-    width: 750px;
+    max-width: 750px;
+    width: 95%;
     background-color: black;
     display: grid;
     grid-template-areas:
@@ -156,6 +155,8 @@ body {
 header {
     position: fixed;
     background-color: $black1;
+    z-index: 100;
+    width: 100%;
 
     @media screen and (max-width: $break-small) {
         position: fixed;
@@ -163,11 +164,17 @@ header {
 
     img {
         padding: 0 2.5rem;
+
+        @media screen and (max-width: $break-medium) {
+            max-width: 20vh;
+        }
     }
 
     a {
         color: $secondary;
         font-family: ssp_regular;
+        text-align: center;
+        font-size: 1.25rem;
 
         &:hover {
             color: white;
@@ -251,6 +258,7 @@ header {
         @media screen and (max-width: $break-medium) {
             grid-column: 2 / 5;
             box-shadow: 2px 2px 1px black;
+            margin-top: calc(7vh - 5vh);
         }
 
         h1 {
@@ -261,7 +269,7 @@ header {
             color: white;
 
             @media screen and (max-width: $break-medium) {
-                font-size: 4rem;
+                font-size: 6ch;
             }
 
             @media screen and (max-width: $break-small) {
@@ -307,7 +315,7 @@ header {
             font-size: 1rem;
             grid-column: 1 / span 5;
             grid-row: 5;
-            margin: 0 1rem
+            margin: 0 3rem
         }
 
         @media screen and (max-width: $break-small) {
@@ -350,21 +358,33 @@ header {
 
 #chartMain {
 
+    padding-top: 50px;
 
     section {
         height: 100vh;
-        margin-top: 7rem;
-        margin-bottom: 7rem;
-        border-bottom: $white2 dotted 2px;
+        box-shadow: 0px 0px 10px $black1;
+        border-radius: 15px;
+        margin-bottom: 50px;
+        padding: 50px;
+
+        background: rgb(37, 37, 37);
+        background: linear-gradient(165deg, rgba(37, 37, 37, 1) 0%, rgba(9, 35, 36, 1) 100%);
 
         @media screen and (max-width: $break-medium) {
             height: auto;
-            width: 100%;
-            margin-top: 0;
-            margin-bottom: 0;
+            width: 95%;
+            margin: 40px auto;
 
             * {
                 margin: 3% auto;
+            }
+        }
+
+        @media screen and (max-width: $break-small) {
+            padding: 10px;
+
+            * {
+                margin: 2% auto;
             }
         }
 
@@ -372,20 +392,21 @@ header {
         h3 {
             color: $secondary;
             font-family: ssp_black;
+            text-align: center;
+            text-shadow: 2px 2px 0px black;
 
             @media screen and (max-width: $break-medium) {
                 font-size: 5vw;
-                text-align: center;
             }
 
             @media screen and (max-width: $break-small) {
                 font-size: 7vw;
-                text-align: center;
             }
         }
 
         h4 {
             color: $white1;
+            text-align: center;
 
             span {
                 color: $secondary;
@@ -397,10 +418,57 @@ header {
             }
 
             @media screen and (max-width: $break-small) {
-                font-size: 4.5vw;
-                margin: 0 5%
+                font-size: 3.5vw;
+                margin: 0 5%;
+                text-align: center;
             }
         }
+
+        ol {
+            font-size: 3ch;
+            z-index: 0;
+
+            @media screen and (max-width: $break-medium) {
+                font-size: 2ch;
+            }
+
+            @media screen and (max-width: $break-small) {
+                padding: auto 2vw;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
+
+
+
+            li {
+                counter-increment: list;
+                list-style-type: none;
+                position: relative;
+
+                &:before {
+                    color: $white2;
+                    content: counter(list) ".";
+                    left: -32px;
+                    position: absolute;
+                    text-align: right;
+                    width: 26px;
+                }
+
+                @media screen and (max-width: $break-medium) {
+                    margin: 1vw 5vw;
+                }
+
+                a {
+                    color: $secondary;
+
+                    &:hover {
+                        color: $white2;
+                    }
+                }
+            }
+        }
+
     }
 
     .playcount-section {
@@ -429,7 +497,6 @@ header {
         flex-wrap: wrap;
         height: auto;
         border-bottom: none;
-        margin-top: 5rem;
 
         h3 {
             margin-bottom: 4rem;

@@ -171,7 +171,7 @@ class User {
 	}
 
 	getUrl(method) {
-		let url = `http://ws.audioscrobbler.com/2.0/?method=user.${method}&user=${this.username}&api_key=${this.api_key}&format=json&limit=10&period=${this.period}`;
+		let url = `https://ws.audioscrobbler.com/2.0/?method=user.${method}&user=${this.username}&api_key=${this.api_key}&format=json&limit=10&period=${this.period}`;
 		return url;
 	}
 

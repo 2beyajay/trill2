@@ -256,16 +256,16 @@ header a:hover {
   gap: 20px;
   -ms-grid-columns: 1fr 10vw 40vw 10vw 1fr;
       grid-template-columns: 1fr 10vw 40vw 10vw 1fr;
-  -ms-grid-rows: 20vh 20vh 5vh 10vh 7vh auto;
-      grid-template-rows: 20vh 20vh 5vh 10vh 7vh auto;
+  -ms-grid-rows: 20vh 20vh 4vh 5vh 20px 7vh auto;
+      grid-template-rows: 20vh 20vh 4vh 5vh 20px 7vh auto;
 }
 
 @media screen and (max-width: 1200px) {
   .landing {
     -ms-grid-columns: 1fr 10vw 20vw 10vw 1fr;
         grid-template-columns: 1fr 10vw 20vw 10vw 1fr;
-    -ms-grid-rows: 10vh 10vh 5vh 5vh 6vh auto;
-        grid-template-rows: 10vh 10vh 5vh 5vh 6vh auto;
+    -ms-grid-rows: 10vh 10vh 5vh 5vh 20px 6vh auto;
+        grid-template-rows: 10vh 10vh 5vh 5vh 20px 6vh auto;
   }
 }
 
@@ -362,13 +362,23 @@ header a:hover {
   }
 }
 
+.landing p {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 3;
+  grid-column: 2 / 5;
+  -ms-grid-row: 5;
+  grid-row: 5;
+  text-align: center;
+  color: #2B5252;
+}
+
 .landing form {
   border: #30CFD0 solid 2px;
   -ms-grid-column: 2;
   -ms-grid-column-span: 3;
   grid-column: 2 / span 3;
-  -ms-grid-row: 5;
-  grid-row: 5;
+  -ms-grid-row: 6;
+  grid-row: 6;
 }
 
 @media screen and (max-width: 1200px) {
@@ -377,8 +387,8 @@ header a:hover {
     -ms-grid-column: 1;
     -ms-grid-column-span: 5;
     grid-column: 1 / span 5;
-    -ms-grid-row: 5;
-    grid-row: 5;
+    -ms-grid-row: 6;
+    grid-row: 6;
     margin: 0 3rem;
   }
 }
@@ -423,9 +433,9 @@ header a:hover {
   -ms-grid-column: 1;
   -ms-grid-column-span: 5;
   grid-column: 1 / 6;
-  -ms-grid-row: 6;
+  -ms-grid-row: 7;
   -ms-grid-row-span: 1;
-  grid-row: 6 / 7;
+  grid-row: 7 / 8;
 }
 
 .landing .svg iframe {
@@ -486,6 +496,7 @@ header a:hover {
 @media screen and (max-width: 550px) {
   #chartMain section h3 {
     font-size: 7vw;
+    text-shadow: 1px 1px 0px black;
   }
 }
 
@@ -755,6 +766,7 @@ footer p {
   }
   .about-page main section h1 {
     font-size: 1.5rem;
+    text-shadow: 1px 1px 1px black;
   }
   .about-page main section h2 {
     margin-left: 0;

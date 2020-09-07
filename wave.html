@@ -1,8 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <style>
-        body{
+        body {
             overflow: hidden;
         }
+
         .ocean {
             height: 0;
             width: 100%;
@@ -13,7 +20,7 @@
         }
 
         .wave {
-            background: url(../img/wave.svg) repeat-x;
+            background: url(./img/wave.svg) repeat-x;
             position: absolute;
             top: -120px;
             width: 6400px;
@@ -28,7 +35,7 @@
             opacity: 1;
             animation-delay: 0.5s;
         }
-        
+
         .wave:nth-of-type(3) {
             top: -120px;
             animation: wave 6.5s cubic-bezier(0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
@@ -67,9 +74,13 @@
     </style>
 </head>
 
-<div class="ocean">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-</div>
+<body>
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+</body>
+
+</html>

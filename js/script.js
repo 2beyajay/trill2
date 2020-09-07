@@ -13,6 +13,25 @@ window.onscroll = function () {
 	scrollFunction()
 };
 
+
+window.onload = function () {
+	// $(document).foundation();
+	main = document.querySelector('main');
+	getUsername = document.querySelector('#getUsername');
+	chartMain = document.querySelector('#chartMain');
+	loading = document.querySelector('#loading');
+	downloadCollageButton = document.querySelector('#downloadCollage');
+
+	getUsername.addEventListener('submit', (e) => {
+		e.preventDefault();
+		let username = e.target[0].value; //getting the value of the username input field
+		let period = e.target[1].value; //getting the value of the period dropdown field
+		user = new User(username, period); // making a user object with the given username and the period selected
+		getUserData()
+	})
+};
+
+
 function scrollFunction() {
 	let toTop = document.getElementById("toTop");
 	let headerLogo = document.querySelector('header img');
@@ -30,29 +49,6 @@ function topFunction() {
 	document.body.scrollTop = 0;
 	document.documentElement.scrollTop = 0;
 }
-
-
-
-
-window.onload = function () {
-	// $(document).foundation();
-	main = document.querySelector('main');
-	getUsername = document.querySelector('#getUsername');
-	chartMain = document.querySelector('#chartMain');
-	loading = document.querySelector('#loading');
-	downloadCollageButton = document.querySelector('#downloadCollage');
-
-	getUsername.addEventListener('submit', (e) => {
-		e.preventDefault();
-		let username = e.target[0].value; //getting the value of the username input field
-		let period = e.target[1].value; //getting the value of the period dropdown field
-		user = new User(username, period); // making a user object with the given username and the period selected
-		getUserData()
-	})
-
-
-
-};
 
 
 
@@ -235,8 +231,6 @@ async function makeDurationChart() {
 
 	let percentSpent = (totalDurationHours / (accountAgeHours - userSleep)) * 100;
 
-	console.log(`account age ${accountAgeHours}, \nsleep ${userSleep}, \ntotalDurationHours ${totalDurationHours}, \naccount age - sleep ${accountAgeHours - userSleep}`);
-
 	document.getElementById('totalDurationHours').innerHTML = `Time you've spent swining to the tunes: <span>${totalDurationHours.toLocaleString()}</span> Hours out of the last <span>${(accountAgeHours - userSleep).toLocaleString()}</span> hours you've been awake which make up <span>${percentSpent.toFixed(2)}%</span> of your awake time.`
 
 
@@ -274,6 +268,19 @@ async function makeDurationChart() {
 async function makeTopTracksChart() {
 
 	let tracks = user.allUserData.top10.tracks;
+	
+	let tracksLastfmUrl = tracks.map(track => {
+		return [track.url, track.name];
+	})
+
+	// making the html list for tracks
+	let topTracksList = document.querySelector('.topTracksList')
+	tracksOlContent = ''
+	tracks.forEach(track => {
+		tracksOlContent += `<li><a href='${track.url}'>${track.name}</a></li>`
+	});
+	topTracksList.innerHTML = tracksOlContent;
+
 
 	let trackTimeHours = tracks.map(track => {
 		return Math.ceil((track.playcount * track.duration) / 3600)
@@ -364,6 +371,15 @@ async function makeTopTracksChart() {
 async function makeTopAlbumsChart() {
 	let albums = user.allUserData.top10.albums;
 
+	// making the html list for albums
+	let topAlbumsList = document.querySelector('.topAlbumsList')
+	albumsOlContent = ''
+	albums.forEach(album => {
+		albumsOlContent += `<li><a href='${album.url}'>${album.name}</a></li>`
+	});
+	topAlbumsList.innerHTML = albumsOlContent;
+
+
 	let playcount = albums.map(album => {
 		return album.playcount
 	})
@@ -435,6 +451,15 @@ async function makeTopAlbumsChart() {
 
 async function makeTopArtistsChart() {
 	let artists = user.allUserData.top10.artists;
+
+	// making the html list for artists
+	let topArtistsList = document.querySelector('.topArtistsList')
+	artistsOlContent = ''
+	artists.forEach(artist => {
+		artistsOlContent += `<li><a href='${artist.url}'>${artist.name}</a></li>`
+	});
+	topArtistsList.innerHTML = artistsOlContent;
+
 
 	let playcount = artists.map(artist => {
 		return artist.playcount

@@ -15,7 +15,6 @@ window.onscroll = function () {
 
 
 window.onload = function () {
-	// $(document).foundation();
 	main = document.querySelector('main');
 	getUsername = document.querySelector('#getUsername');
 	chartMain = document.querySelector('#chartMain');
@@ -54,7 +53,6 @@ function topFunction() {
 
 async function getUserData() {
 
-	// getUsername.classList.add('hide')
 	main.classList.add('hide');
 	loading.classList.remove('hide')
 
@@ -97,14 +95,12 @@ async function makeImages(images) {
 		div.classList.add(divClasses[i])
 		div.appendChild(img);
 		imageContainer.appendChild(div);
-		console.log(div);
 	}
 
 	loading.classList.add('hide')
 	main.classList.remove('hide')
 	chartMain.classList.remove('hide')
 	window.scrollBy(0, window.innerHeight / 1.25)
-	// getUsername.classList.remove('hide')
 }
 
 
@@ -120,17 +116,6 @@ async function makeCanvas() {
 	})
 
 }
-
-
-/* async function makeCanvas() {
-	html2canvas(document.querySelector('.image-container'), {
-		useCORS: true //enabling external links
-	}).then(function (canvas) {
-		downloadCollageButton.addEventListener('click', () => {
-			ReImg.fromCanvas(canvas).downloadPng('collage') //ReImg library to convert canvas and force user to download it
-		})
-	});
-} */
 
 function debugBase64(base64URL) {
 	var win = window.open();

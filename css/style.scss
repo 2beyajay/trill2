@@ -1,5 +1,6 @@
 $primary: #330867;
 $secondary: #30CFD0;
+$secondary-dark: #2B5252;
 
 $black1: #232323;
 $black2: #303030;
@@ -259,9 +260,9 @@ header {
         justify-content: center;
         align-items: center;
         // background-color: $primary;
-        
-        background: rgb(65,27,113);
-        background: linear-gradient(125deg, rgba(65,27,113,1) 0%, rgba(27,5,55,1) 100%); 
+
+        background: rgb(65, 27, 113);
+        background: linear-gradient(125deg, rgba(65, 27, 113, 1) 0%, rgba(27, 5, 55, 1) 100%);
 
         box-shadow: 5px 5px 0px black;
 
@@ -555,5 +556,124 @@ footer {
 
     p {
         margin: 0
+    }
+}
+
+
+
+
+
+.about-page {
+
+
+
+    main {
+        padding-top: 20vh;
+        margin: auto 200px;
+
+        @media screen and (max-width: $break-medium) {
+            margin: auto 100px;
+        }
+
+        @media screen and (max-width: $break-small) {
+            margin: auto 25px;
+        }
+
+        section {
+            background: rgb(37, 37, 37);
+            background: linear-gradient(165deg, rgba(37, 37, 37, 1) 0%, rgba(9, 35, 36, 1) 100%);
+
+            box-shadow: 0px 0px 10px $black1;
+            border-radius: 15px;
+
+            padding: 50px;
+
+
+
+            h1,
+            h3 {
+                font-family: ssp_black;
+            }
+
+            p,
+            h2 {
+                font-family: ssp_regular;
+            }
+
+            h1 {
+                color: $secondary;
+                text-shadow: 3px 3px 1px black;
+            }
+
+            h2 {
+                color: $secondary-dark;
+                font-size: 2rem;
+                margin-top: 2rem;
+                margin-left: 2rem;
+            }
+
+            h3 {
+                text-align: right;
+
+                a {
+                    color: $secondary;
+
+                    &:hover {
+                        border-bottom: $secondary 1px solid;
+                    }
+                }
+
+            }
+
+            p {
+                color: $white1;
+                margin-left: 4rem;
+                font-size: 1.25rem;
+                letter-spacing: 0.0625em;
+
+                span {
+                    border-bottom: $secondary 1px solid;
+                }
+            }
+
+
+            @media screen and (max-width: $break-medium) {
+                padding: 40px;
+
+                h1 {
+                    font-size: 2.5rem;
+                }
+
+                h2 {
+                    font-size: 1.5rem;
+                }
+            }
+
+            @media screen and (max-width: $break-small) {
+                padding: 20px;
+
+                h1 {
+                    font-size: 1.5rem;
+                }
+
+                h2 {
+                    margin-left: 0;
+                    margin-top: 0;
+                    font-size: 1.2rem;
+                }
+
+                p {
+                    margin-left: 0;
+                    font-size: 1rem;
+                }
+
+            }
+
+
+        }
+    }
+
+    footer {
+        margin-top: 20vh;
     }
 }

@@ -8,19 +8,20 @@ let downloadCollageButton;
 let chartLabelColor = '#d4d4d4'
 
 
-//Get the button
-let toTop = document.getElementById("toTop");
 
-// When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
 	scrollFunction()
 };
 
 function scrollFunction() {
+	let toTop = document.getElementById("toTop");
+	let headerLogo = document.querySelector('header img');
 	if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
 		toTop.style.display = "block";
+		headerLogo.style.padding = '0 6vh'
 	} else {
 		toTop.style.display = "none";
+		headerLogo.style.padding = '0 2.5rem'
 	}
 }
 
@@ -49,10 +50,6 @@ window.onload = function () {
 		getUserData()
 	})
 
-
-
-
-	
 
 
 };

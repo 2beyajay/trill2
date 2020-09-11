@@ -8,6 +8,10 @@ let landingP;
 
 let chartLabelColor = '#d4d4d4'
 
+let playcountChartDiv = document.getElementById('playcountChartDiv');
+let tracksChartDiv = document.getElementById('tracksChartDiv');
+let artistsChartDiv = document.getElementById('artistsChartDiv');
+let albumsChartDiv = document.getElementById('albumsChartDiv');
 
 
 window.onscroll = function () {
@@ -25,6 +29,13 @@ window.onload = function () {
 
 	getUsername.addEventListener('submit', (e) => {
 		e.preventDefault();
+
+		playcountChartDiv.innerHTML = '';
+		tracksChartDiv.innerHTML = '';
+		artistsChartDiv.innerHTML = '';
+		albumsChartDiv.innerHTML = '';
+
+
 		let username = e.target[0].value; //getting the value of the username input field
 		let period = e.target[1].value; //getting the value of the period dropdown field
 
@@ -237,6 +248,8 @@ function compare(a, b) {
 
 async function makeDurationChart() {
 
+	playcountChartDiv.innerHTML = '<canvas id="playcountChart" width="300" height="300"></canvas>';
+
 	let accountAgeHours = (user.allUserData.accountAge / 3600).toFixed(0);
 
 	let userSleep = (accountAgeHours / 3).toFixed(0); //dividing by 3 cuz 24/8 = 3. 8hr sleep per 24 hours
@@ -281,6 +294,8 @@ async function makeDurationChart() {
 }
 
 async function makeTopTracksChart() {
+
+	tracksChartDiv.innerHTML = '<canvas id="tracksChart" width="400" height="300"></canvas>'
 
 	let tracks = user.allUserData.top10.tracks;
 
@@ -384,6 +399,9 @@ async function makeTopTracksChart() {
 }
 
 async function makeTopAlbumsChart() {
+
+	albumsChartDiv.innerHTML = '<canvas id="albumsChart" width="400" height="300"></canvas>';
+
 	let albums = user.allUserData.top10.albums;
 
 	// making the html list for albums
@@ -465,6 +483,9 @@ async function makeTopAlbumsChart() {
 }
 
 async function makeTopArtistsChart() {
+
+	artistsChartDiv.innerHTML = '<canvas id="artistsChart" width="400" height="300"></canvas>';
+
 	let artists = user.allUserData.top10.artists;
 
 	// making the html list for artists

@@ -524,6 +524,11 @@ header {
 
         h3 {
             margin-bottom: 4rem;
+
+            @media screen and (max-width: $break-small) {
+                margin-bottom: 1.25rem;
+            }
+
         }
 
         .image-container {

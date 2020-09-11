@@ -292,7 +292,7 @@ async function makeTopTracksChart() {
 	let topTracksList = document.querySelector('.topTracksList')
 	tracksOlContent = ''
 	tracks.forEach(track => {
-		tracksOlContent += `<li><a href='${track.url}'>${track.name}</a></li>`
+		tracksOlContent += `<li><a href='${track.url}' target="_blank">${track.name}</a></li>`
 	});
 	topTracksList.innerHTML = tracksOlContent;
 
@@ -390,7 +390,7 @@ async function makeTopAlbumsChart() {
 	let topAlbumsList = document.querySelector('.topAlbumsList')
 	albumsOlContent = ''
 	albums.forEach(album => {
-		albumsOlContent += `<li><a href='${album.url}'>${album.name}</a></li>`
+		albumsOlContent += `<li><a href='${album.url}' target="_blank">${album.name}</a></li>`
 	});
 	topAlbumsList.innerHTML = albumsOlContent;
 
@@ -471,7 +471,7 @@ async function makeTopArtistsChart() {
 	let topArtistsList = document.querySelector('.topArtistsList')
 	artistsOlContent = ''
 	artists.forEach(artist => {
-		artistsOlContent += `<li><a href='${artist.url}'>${artist.name}</a></li>`
+		artistsOlContent += `<li><a href='${artist.url}' target="_blank">${artist.name}</a></li>`
 	});
 	topArtistsList.innerHTML = artistsOlContent;
 

@@ -243,12 +243,16 @@ header {
     height: 90vh;
     display: grid;
     gap: 20px;
-    grid-template-columns: 1fr 10vw 40vw 10vw 1fr;
+    grid-template-columns: 1fr 10vw 45vw 10vw 1fr;
     grid-template-rows: 20vh 20vh 4vh 5vh 20px 7vh auto;
 
     @media screen and (max-width: $break-medium) {
-        grid-template-columns: 1fr 10vw 20vw 10vw 1fr;
+        grid-template-columns: 1fr 10vw 35vw 10vw 1fr;
         grid-template-rows: 10vh 10vh 5vh 5vh 20px 6vh auto;
+    }
+
+    @media screen and (max-width: $break-small) {
+        grid-template-columns: 1fr 10vw 40vw 10vw 1fr;
     }
 
     .heading {
@@ -259,35 +263,128 @@ header {
         align-items: center;
         // background-color: $primary;
 
-        background: rgb(65, 27, 113);
-        background: linear-gradient(125deg, rgba(65, 27, 113, 1) 0%, rgba(27, 5, 55, 1) 100%);
+        // background: rgb(65, 27, 113);
+        // background: linear-gradient(125deg, rgba(65, 27, 113, 1) 0%, rgba(27, 5, 55, 1) 100%);
 
-        box-shadow: 5px 5px 0px black;
+        // box-shadow: 5px 5px 0px black;
 
         @media screen and (max-width: $break-medium) {
             grid-column: 2 / 5;
-            box-shadow: 2px 2px 1px black;
             margin-top: calc(7vh - 5vh);
         }
 
         h1 {
             text-shadow: 3px 3px 1px black;
             font-family: ssp_black;
-            font-size: 5rem;
+            font-size: 6rem;
             text-align: center;
             color: white;
 
             @media screen and (max-width: $break-medium) {
-                font-size: 6ch;
+                font-size: 7.5ch;
             }
 
             @media screen and (max-width: $break-small) {
-                font-size: 2rem;
+                font-size: 2.5rem;
                 text-shadow: 1px 1px 1px black;
             }
 
-            span {
-                color: $secondary
+            #outer-trill {
+                color: $secondary;
+                display: inline-block;
+                position: relative;
+                -webkit-text-stroke-width: 0.015em;
+                -webkit-text-stroke-color: black;
+                text-transform: uppercase;
+
+                text-shadow:
+                    0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+                    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+
+
+
+                @keyframes glitch {
+                    0% {
+                        text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                            -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+                    }
+
+                    14% {
+                        text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                            -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+                    }
+
+                    15% {
+                        text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                            0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                    }
+
+                    49% {
+                        text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                            0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                    }
+
+                    50% {
+                        text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                            0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+                    }
+
+                    99% {
+                        text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                            0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+                    }
+
+                    100% {
+                        text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
+                            -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+                    }
+                }
+
+                @keyframes breakMove {
+                    from {
+                        transform: translate(-0.025em, 0.025em);
+                    }
+
+                    to {
+                        transform: translate(0.025em, -0.025em);
+                    }
+                }
+
+                span {
+                    animation-direction: alternate;
+                }
+
+                span:nth-of-type(1) {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    animation: glitch 650ms infinite;
+                    z-index: 1;
+                    clip-path: polygon(0 0, 100% 0, 100% 43%, 0 62%);
+
+                    transform: translate(-0.025em, -0.0125em);
+                }
+
+                #main-trill-span {
+                    animation: glitch 375ms infinite;
+                }
+
+                span:nth-of-type(3) {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    animation: glitch 375ms infinite reverse;
+                    clip-path: polygon(0 0, 100% 0, 100% 43%, 0 62%);
+
+                    transform: translate(0.0125em, 0.025em);
+                }
+
             }
         }
     }
@@ -315,7 +412,7 @@ header {
         }
     }
 
-    p{
+    p {
         grid-column: 2 / 5;
         grid-row: 5;
         text-align: center;

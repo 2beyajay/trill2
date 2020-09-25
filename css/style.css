@@ -254,18 +254,25 @@ header a:hover {
   display: -ms-grid;
   display: grid;
   gap: 20px;
-  -ms-grid-columns: 1fr 10vw 40vw 10vw 1fr;
-      grid-template-columns: 1fr 10vw 40vw 10vw 1fr;
+  -ms-grid-columns: 1fr 10vw 45vw 10vw 1fr;
+      grid-template-columns: 1fr 10vw 45vw 10vw 1fr;
   -ms-grid-rows: 20vh 20vh 4vh 5vh 20px 7vh auto;
       grid-template-rows: 20vh 20vh 4vh 5vh 20px 7vh auto;
 }
 
 @media screen and (max-width: 1200px) {
   .landing {
-    -ms-grid-columns: 1fr 10vw 20vw 10vw 1fr;
-        grid-template-columns: 1fr 10vw 20vw 10vw 1fr;
+    -ms-grid-columns: 1fr 10vw 35vw 10vw 1fr;
+        grid-template-columns: 1fr 10vw 35vw 10vw 1fr;
     -ms-grid-rows: 10vh 10vh 5vh 5vh 20px 6vh auto;
         grid-template-rows: 10vh 10vh 5vh 5vh 20px 6vh auto;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .landing {
+    -ms-grid-columns: 1fr 10vw 40vw 10vw 1fr;
+        grid-template-columns: 1fr 10vw 40vw 10vw 1fr;
   }
 }
 
@@ -283,10 +290,6 @@ header a:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #411b71;
-  background: linear-gradient(125deg, #411b71 0%, #1b0537 100%);
-  -webkit-box-shadow: 5px 5px 0px black;
-          box-shadow: 5px 5px 0px black;
 }
 
 @media screen and (max-width: 1200px) {
@@ -294,8 +297,6 @@ header a:hover {
     -ms-grid-column: 2;
     -ms-grid-column-span: 3;
     grid-column: 2 / 5;
-    -webkit-box-shadow: 2px 2px 1px black;
-            box-shadow: 2px 2px 1px black;
     margin-top: calc(7vh - 5vh);
   }
 }
@@ -303,26 +304,136 @@ header a:hover {
 .landing .heading h1 {
   text-shadow: 3px 3px 1px black;
   font-family: ssp_black;
-  font-size: 5rem;
+  font-size: 6rem;
   text-align: center;
   color: white;
 }
 
 @media screen and (max-width: 1200px) {
   .landing .heading h1 {
-    font-size: 6ch;
+    font-size: 7.5ch;
   }
 }
 
 @media screen and (max-width: 550px) {
   .landing .heading h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     text-shadow: 1px 1px 1px black;
   }
 }
 
-.landing .heading h1 span {
+.landing .heading h1 #outer-trill {
   color: #30CFD0;
+  display: inline-block;
+  position: relative;
+  -webkit-text-stroke-width: 0.015em;
+  -webkit-text-stroke-color: black;
+  text-transform: uppercase;
+  text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+}
+
+@-webkit-keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  14% {
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  15% {
+    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  50% {
+    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  99% {
+    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  100% {
+    text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  14% {
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  15% {
+    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  50% {
+    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  99% {
+    text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  100% {
+    text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+}
+
+@-webkit-keyframes breakMove {
+  from {
+    -webkit-transform: translate(-0.025em, 0.025em);
+            transform: translate(-0.025em, 0.025em);
+  }
+  to {
+    -webkit-transform: translate(0.025em, -0.025em);
+            transform: translate(0.025em, -0.025em);
+  }
+}
+
+@keyframes breakMove {
+  from {
+    -webkit-transform: translate(-0.025em, 0.025em);
+            transform: translate(-0.025em, 0.025em);
+  }
+  to {
+    -webkit-transform: translate(0.025em, -0.025em);
+            transform: translate(0.025em, -0.025em);
+  }
+}
+
+.landing .heading h1 #outer-trill span {
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+
+.landing .heading h1 #outer-trill span:nth-of-type(1) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: glitch 650ms infinite;
+          animation: glitch 650ms infinite;
+  z-index: 1;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 43%, 0 62%);
+          clip-path: polygon(0 0, 100% 0, 100% 43%, 0 62%);
+  -webkit-transform: translate(-0.025em, -0.0125em);
+          transform: translate(-0.025em, -0.0125em);
+}
+
+.landing .heading h1 #outer-trill #main-trill-span {
+  -webkit-animation: glitch 375ms infinite;
+          animation: glitch 375ms infinite;
+}
+
+.landing .heading h1 #outer-trill span:nth-of-type(3) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: glitch 375ms infinite reverse;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 43%, 0 62%);
+          clip-path: polygon(0 0, 100% 0, 100% 43%, 0 62%);
+  -webkit-transform: translate(0.0125em, 0.025em);
+          transform: translate(0.0125em, 0.025em);
 }
 
 .landing .subheading {

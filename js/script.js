@@ -13,6 +13,10 @@ let tracksChartDiv = document.getElementById('tracksChartDiv');
 let artistsChartDiv = document.getElementById('artistsChartDiv');
 let albumsChartDiv = document.getElementById('albumsChartDiv');
 
+let hintShown = false;
+let hint;
+let hintClose;
+
 
 window.onscroll = function () {
 	scrollFunction()
@@ -25,7 +29,10 @@ window.onload = function () {
 	chartMain = document.querySelector('#chartMain');
 	loading = document.querySelector('#loading');
 	downloadCollageButton = document.querySelector('#downloadCollage');
-	landingP = document.querySelector('.landing p')
+	landingP = document.querySelector('.landing p');
+
+	hint = document.querySelector('.hint');
+	hintClose = document.querySelector('.hint .closebtn');
 
 	getUsername.addEventListener('submit', (e) => {
 		e.preventDefault();
@@ -137,6 +144,19 @@ async function makeImages(images) {
 	loading.classList.add('hide')
 	main.classList.remove('hide')
 	chartMain.classList.remove('hide')
+
+	setTimeout(() => {
+		if (!hintShown) {
+			hint.classList.add('goUp');
+			hintShown = true;
+		}
+	}, 5000);
+
+	hintClose.addEventListener('click', (e) => {
+		hint.classList.remove('goUp');
+		hint.classList.add('goDown')
+	})
+
 	window.scrollBy(0, window.innerHeight / 1.25)
 }
 
@@ -324,6 +344,9 @@ async function makeTopTracksChart() {
 		return track.name
 	})
 
+	let trackUrl = tracks.map(track => {
+		return track.url
+	})
 
 	let ctx = document.getElementById('tracksChart').getContext('2d');
 	let tracksChart = new Chart(ctx, {
@@ -371,6 +394,14 @@ async function makeTopTracksChart() {
 			}]
 		},
 		options: {
+			onClick: function (e, i) {
+				try {
+					e = i[0];
+					window.open(trackUrl[e._index], '_blank');
+				} catch (error) {
+					throw error
+				}
+			},
 			legend: {
 				labels: {
 					fontColor: chartLabelColor
@@ -421,6 +452,10 @@ async function makeTopAlbumsChart() {
 		return album.name
 	})
 
+	let albumUrl = albums.map(album => {
+		return album.url
+	})
+
 
 	let ctx = document.getElementById('albumsChart').getContext('2d');
 	let albumsChart = new Chart(ctx, {
@@ -457,12 +492,20 @@ async function makeTopAlbumsChart() {
 			}]
 		},
 		options: {
+			onClick: function (e, i) {
+				try {
+					e = i[0];
+					window.open(albumUrl[e._index], '_blank');
+				} catch (error) {
+					throw error
+				}
+			},
 			legend: {
 				display: false
 			},
 			title: {
 				display: true,
-				text: 'Hours Spent on Albums',
+				text: 'Playcount of Albums',
 				fontColor: chartLabelColor
 			},
 			scales: {
@@ -505,6 +548,10 @@ async function makeTopArtistsChart() {
 		return artist.name
 	})
 
+	let artistUrl = artists.map(artist => {
+		return artist.url
+	})
+
 
 	let ctx = document.getElementById('artistsChart').getContext('2d');
 	let artistsChart = new Chart(ctx, {
@@ -541,12 +588,20 @@ async function makeTopArtistsChart() {
 			}]
 		},
 		options: {
+			onClick: function (e, i) {
+				try {
+					e = i[0];
+					window.open(artistUrl[e._index], '_blank');
+				} catch (error) {
+					throw error
+				}
+			},
 			legend: {
 				display: false
 			},
 			title: {
 				display: true,
-				text: 'Hours Spent with Artists',
+				text: 'Playcount of Artists',
 				fontColor: chartLabelColor
 			},
 			scales: {
@@ -564,4 +619,9 @@ async function makeTopArtistsChart() {
 			}
 		}
 	});
+}
+
+
+function pageRedirection(goToThisUrl) {
+	window.open(goToThisUrl, '_blank');
 }

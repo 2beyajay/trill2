@@ -200,6 +200,144 @@ header a:hover {
   }
 }
 
+/* hint box */
+.hint {
+  z-index: 99999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 720px;
+  padding: 20px 20px 75px 40px;
+  position: fixed;
+  left: 50%;
+  bottom: -200px;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  background-color: #232323;
+  border: #3b3b3b solid 2px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+
+.hint div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+
+.hint div img {
+  width: 100px;
+}
+
+.hint .closebtn {
+  margin-left: 30px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  font-size: 2em;
+}
+
+.hint .closebtn:hover {
+  color: #30CFD0;
+}
+
+.hint p {
+  margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .hint {
+    padding: 20px 20px 50px 20px;
+    font-size: smaller;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .hint {
+    padding: 20px 20px 50px 20px;
+    font-size: smaller;
+  }
+  .hint div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 20px;
+  }
+  .hint div img {
+    width: 75px;
+  }
+}
+
+.goUp {
+  -webkit-animation: ani-go-up 1s ease-out forwards;
+  animation: ani-go-up 1s ease-out forwards;
+}
+
+@keyframes ani-go-up {
+  0% {
+    bottom: -200px;
+  }
+  100% {
+    bottom: -10px;
+  }
+}
+
+@-webkit-keyframes ani-go-up {
+  0% {
+    bottom: -200px;
+  }
+  100% {
+    bottom: -10px;
+  }
+}
+
+.goDown {
+  -webkit-animation: ani-go-down 1s ease-out forwards;
+  animation: ani-go-down 1s ease-out forwards;
+}
+
+@keyframes ani-go-down {
+  0% {
+    bottom: -10px;
+  }
+  100% {
+    bottom: -200px;
+  }
+}
+
+@-webkit-keyframes ani-go-down {
+  0% {
+    bottom: -10px;
+  }
+  100% {
+    bottom: -200px;
+  }
+}
+
 .loading-div {
   height: 100vh;
   overflow: hidden;
@@ -558,6 +696,10 @@ header a:hover {
 
 #chartMain {
   padding-top: 50px;
+}
+
+#chartMain canvas {
+  cursor: pointer;
 }
 
 #chartMain section {
